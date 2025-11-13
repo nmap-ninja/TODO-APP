@@ -1,47 +1,39 @@
 var input = document.getElementById("input");
 var btn = document.getElementById("btn");
-var div = document.querySelector(".userData");
-let arr = [];
+var div = document.querySelector(".user-data");
+let todos = [];
+let getTodoItems = localStorage.getItem("todos");
+if (!getTodoItems) {
+  [];
+} else {
+  todos = JSON.parse(getTodoItems);
+}
 
 btn.addEventListener("click", () => {
-  arr.push(input.value);
-  arr.forEach((index, item) => {
-    localStorage.setItem(index, item);
-  });
+  addTodo();
+  renderNote();
 });
 
-console.log("HEllo World");
+function addTodo() {
+  todoItem = input.value;
+  todos.push(todoItem);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  input.value = "";
+}
 
-//()=>{
-// arr.push(input.value);
-// var li = document.createElement("li");
-// for(let i = 0; i < arr.length; i++){
-//     li.innerHTML = localStorage.getItem(i, arr[i]);
-//     localStorage.setItem(i, arr[i]);
-// }
-// li.addEventListener('click', () => {
-//     li.classList.toggle('active');
-// });
-// div.appendChild(li);
-//});
+function renderNote() {
+  let todoElem = "";
+  todos.forEach((todo, index) => {
+    todoElem += `<div class="todo-items">
+          <li>${todo}</li>
+          <button onclick="deleteTodo(${index})"><i class="fa-solid fa-trash"></i> <span>Delete</span></button>
+        </div>`;
+  });
+  div.innerHTML = todoElem;
+}
 
-// function addToDo() {
-//   arr.forEach((elem) => {
-//     arr.push(elem);
-//     arr.map;
-//     var li = document.createElement("li");
-//     li.innerHTML = elem;
-//     div.appendChild(li);
-//   });
-// }
-
-// const addToDo = () => {
-//   //   arr.push(input.value);
-//   let li = document.createElement("li");
-//   arr.map((elem) => {
-//     return (li.innerHTML = elem);
-//   });
-//   div.appendChild(li);
-// };
-
-// btn.addEventListener("click", addToDo);
+function deleteTodo(index) {
+  todos.splice(index, 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  renderNote();
+}
