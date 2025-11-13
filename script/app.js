@@ -10,6 +10,8 @@ btn.addEventListener("click", () => {
   });
 });
 
+console.log("HEllo World");
+
 //()=>{
 // arr.push(input.value);
 // var li = document.createElement("li");
