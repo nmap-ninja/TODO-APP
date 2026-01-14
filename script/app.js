@@ -16,6 +16,10 @@ btn.addEventListener("click", () => {
 
 function addTodo() {
   todoItem = input.value;
+  if (todoItem === "") {
+    alert("Add some Todo");
+    return;
+  }
   todos.push(todoItem);
   localStorage.setItem("todos", JSON.stringify(todos));
   input.value = "";
