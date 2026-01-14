@@ -13,6 +13,7 @@ btn.addEventListener("click", () => {
   addTodo();
   renderNote();
 });
+renderNote();
 
 function addTodo() {
   todoItem = input.value;
